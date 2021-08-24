@@ -7,12 +7,22 @@ import { Hello } from './Hello';
 
 const App = () => {
   const [values, handleChange] = useForm({email: '', password: '', firstName: ''});
-  const [showHello, setShowHello] = useState(true);
+  // const [showHello, setShowHello] = useState(true);
+
+  useEffect(() => {
+    const onMouseMove = (e) => {
+      console.log(e);
+    }
+    window.addEventListener('mousemove', onMouseMove)
+    return () => {
+      window.removeEventListener('mousemove', onMouseMove)
+    }
+  }, []);
 
   return (
     <div className="App">
-      <button onClick={() => setShowHello(!showHello)}>hello?</button>
-      {showHello && <Hello />}
+      {/* <button onClick={() => setShowHello(!showHello)}>hello?</button> */}
+      {/* {showHello && <Hello />} */}
       <input
       name='firstName'
       value={values.firstName}
