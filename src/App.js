@@ -1,28 +1,24 @@
 import './App.css';
-
-
 import { useForm } from './useForm';
 import { useEffect, useState } from 'react';
 import { Hello } from './Hello';
+import {useFetch} from './useFetch'
 
 const App = () => {
   const [values, handleChange] = useForm({email: '', password: '', firstName: ''});
-  // const [showHello, setShowHello] = useState(true);
+  const [showHello, setShowHello] = useState(true);
+  const [count, setCount] = useState(0)
+  const {data, loading} = useFetch(`http://numbersapi.com/${count}/trivia`);
 
-  useEffect(() => {
-    const onMouseMove = (e) => {
-      console.log(e);
-    }
-    window.addEventListener('mousemove', onMouseMove)
-    return () => {
-      window.removeEventListener('mousemove', onMouseMove)
-    }
-  }, []);
+
 
   return (
     <div className="App">
-      {/* <button onClick={() => setShowHello(!showHello)}>hello?</button> */}
-      {/* {showHello && <Hello />} */}
+      <div>{loading ? 'loading...' : data}</div>
+      <div>{count}</div>
+      <button onClick={() => setCount(c => c + 1)} >increment</button>
+      <button onClick={() => setShowHello(!showHello)}>hello?</button>
+      {showHello && <Hello />}
       <input
       name='firstName'
       value={values.firstName}
