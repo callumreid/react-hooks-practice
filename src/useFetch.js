@@ -3,13 +3,13 @@ import { useEffect, useState } from "react";
 export const useFetch = (url) => {
   const [state, setState] = useState({data: null, loading: true});
   useEffect(() => {
-    setState({data: null, loading: true})
+    setState(state => ({data: state.data, loading: true}))
     fetch(url)
     .then(resp => resp.text())
     .then(result => {
       setState({data: result, loading: false})
     });
-  }, [url])
+  }, [url, setState])
 
   return state;
 }
