@@ -1,6 +1,6 @@
 import './App.css';
 import { useForm } from './useForm';
-import { useEffect, useState, useRef } from 'react';
+import { useEffect, useState, useRef, useLayoutEffect} from 'react';
 import { Hello } from './Hello';
 import {useFetch} from './useFetch'
 
@@ -15,6 +15,10 @@ const App = () => {
   }, [count])
 
   const inputRef = useRef();
+
+  useLayoutEffect(() => {
+    console.log(inputRef.current.getBoundingClientRect())
+  }, [])
 
   return (
     <div className="App">
