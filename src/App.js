@@ -1,6 +1,6 @@
 import './App.css';
 import { useForm } from './useForm';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { Hello } from './Hello';
 import {useFetch} from './useFetch'
 
@@ -14,6 +14,7 @@ const App = () => {
     localStorage.setItem('count', JSON.stringify(count));
   }, [count])
 
+  const inputRef = useRef();
 
   return (
     <div className="App">
@@ -27,6 +28,7 @@ const App = () => {
       value={values.firstName}
       onChange={handleChange}
       placeholder='Tom'
+      ref={inputRef}
       ></input>
       <input name='email'
       value={values.email}
@@ -39,6 +41,9 @@ const App = () => {
       onChange={handleChange}
       placeholder='TommysMommy'
       ></input>
+      <button
+      onClick={() => inputRef.current.focus()}
+      >FOCUS</button>
     </div>
   );
 }
