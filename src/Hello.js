@@ -1,4 +1,5 @@
-import React, {useRef} from 'react';
+import React, {useRef, useEffect, useState} from 'react';
+import { useFetch } from './useFetch';
 
 export const Hello = () => {
   React.useEffect(() => {
@@ -8,13 +9,25 @@ export const Hello = () => {
     }
   }, []);
 
-  const renders = useRef(0);
+  const [count, setCount] = useState(() => JSON.parse(localStorage.getItem('count')));
+  const {data, loading} = useFetch(`http://numbersapi.com/${count}/trivia`);
 
-  //console.log('hello renders: ', renders.current++)
+  useEffect(() => {
+    localStorage.setItem('count', JSON.stringify(count));
+  }, [count])
+
+
+  const divRef = useRef();
 
   return (
   <div>
     <h1>hello</h1>
+    <div style={{display: 'flex'}}>
+      <div ref={divRef}>{!data ? 'loading...' : data}</div>
+
+    </div>
+    <div>{count}</div>
+    <button onClick={() => setCount(c => c + 1)} >increment</button>
   </div>
   )
 
